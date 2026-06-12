@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-
+ALLOWED_HOSTS = ['ihealth-backend.onrender.com', 'localhost', '127.0.0.1']
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
