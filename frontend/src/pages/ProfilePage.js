@@ -16,7 +16,7 @@ function ProfilePage({ user }) {
   useEffect(() => {
     if (user) {
       setLoadingOrders(true);
-      axios.post('http://127.0.0.1:8000/api/my-orders/', { email: user.email })
+      axios.post('https://ihealth-backend.onrender.com/api/my-orders/', { email: user.email })
         .then(res => {
           setOrders(res.data);
           setLoadingOrders(false);
@@ -36,7 +36,7 @@ function ProfilePage({ user }) {
     e.preventDefault();
     setMessage('');
 
-    axios.post('http://127.0.0.1:8000/api/update-profile/', {
+        axios.post('https://ihealth-backend.onrender.com/api/update-profile/', {
       email: user.email,
       first_name: firstName,
       last_name: lastName,

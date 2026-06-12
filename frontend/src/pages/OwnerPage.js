@@ -31,13 +31,13 @@ function OwnerPage({ user }) {
 
   useEffect(() => {
     if (activeTab === 'orders' && user && user.is_staff) {
-      axios.post('http://127.0.0.1:8000/api/admin/all-orders/', { email: user.email })
+      axios.post('https://ihealth-backend.onrender.com/api/admin/all-orders/', { email: user.email })
         .then(res => setOrders(res.data))
         .catch(err => console.error(err));
     }
 
     if (activeTab === 'products') {
-      axios.get('http://127.0.0.1:8000/api/products/')
+      axios.get('https://ihealth-backend.onrender.com/api/products/')
         .then(res => setProducts(res.data))
         .catch(err => console.error("Failed to load products"));
     }
@@ -52,7 +52,7 @@ function OwnerPage({ user }) {
     e.preventDefault();
     setMessage('');
 
-    axios.post('http://127.0.0.1:8000/api/admin/add-product/', {
+    axios.post('https://ihealth-backend.onrender.com/api/admin/add-product/', {
       email: user.email,
       name, description, price, image_url: imageUrl, is_active: true
     })
@@ -79,7 +79,7 @@ function OwnerPage({ user }) {
   const executeDelete = () => {
     if (!deleteConfirmId) return;
 
-    axios.post(`http://127.0.0.1:8000/api/admin/delete-product/${deleteConfirmId}/`, {
+    axios.post(`https://ihealth-backend.onrender.com/api/admin/delete-product/${deleteConfirmId}/`, {
       email: user.email
     })
     .then(() => {
@@ -115,7 +115,7 @@ function OwnerPage({ user }) {
     e.preventDefault();
     setEditMessage('');
 
-    axios.put(`http://127.0.0.1:8000/api/admin/update-product/${editProduct.id}/`, {
+    axios.put(`https://ihealth-backend.onrender.com/api/admin/update-product/${editProduct.id}/`, {
       email: user.email,
       name: editName,
       description: editDescription,

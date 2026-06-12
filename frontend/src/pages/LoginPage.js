@@ -19,8 +19,8 @@ function LoginPage({ setUser }) {
     setError('');
 
     const url = isSignUp
-      ? 'http://127.0.0.1:8000/api/register/'
-      : 'http://127.0.0.1:8000/api/standard-login/';
+      ? 'https://ihealth-backend.onrender.com/api/register/'
+      : 'https://ihealth-backend.onrender.com/api/standard-login/';
     const payload = isSignUp
       ? { first_name: name, email, password }
       : { email, password };
@@ -44,7 +44,7 @@ function LoginPage({ setUser }) {
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
-    axios.post('http://127.0.0.1:8000/api/google-login/', {
+    axios.post('https://ihealth-backend.onrender.com/api/google-login/', {
       token: credentialResponse.credential
     })
     .then(response => {

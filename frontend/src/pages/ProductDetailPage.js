@@ -12,7 +12,7 @@ function ProductDetailPage({ user, addToCart }) {
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/products/${id}/`)
+    axios.get('https://ihealth-backend.onrender.com/api/products/')
       .then(res => setProduct(res.data))
       .catch(err => console.error("Failed to load product", err));
   }, [id]);
@@ -46,14 +46,14 @@ function ProductDetailPage({ user, addToCart }) {
       return;
     }
 
-    axios.post(`http://127.0.0.1:8000/api/products/${id}/feedback/`, {
+    axios.post(`https://ihealth-backend.onrender.com/api/products/${id}/feedback/`, {
       email: user.email,
       message: feedbackText
     })
     .then(res => {
       setFeedbackSuccess(res.data.message);
       setFeedbackText('');
-      axios.get(`http://127.0.0.1:8000/api/products/${id}/`).then(r => setProduct(r.data));
+      axios.get('https://ihealth-backend.onrender.com/api/products/')
     })
     .catch(err => {
       setFeedbackError(err.response?.data?.error || 'Failed to submit feedback.');

@@ -20,7 +20,7 @@ function CartPage({ cart, clearCart, removeFromCart, user }) {
     if (!voucherCode) return;
     setVoucherMessage({ type: '', text: '' });
 
-    axios.post('http://127.0.0.1:8000/api/validate-voucher/', { code: voucherCode })
+    axios.post('https://ihealth-backend.onrender.com/api/validate-voucher/', { code: voucherCode })
       .then(response => {
         setDiscount(response.data.discount_percentage);
         setVoucherMessage({ type: 'success', text: response.data.message });
@@ -36,7 +36,7 @@ function CartPage({ cart, clearCart, removeFromCart, user }) {
     setCheckoutStatus('processing');
     setAddressRequired(false);
 
-    axios.post('http://127.0.0.1:8000/api/checkout/', {
+    axios.post('https://ihealth-backend.onrender.com/api/checkout/', {
       email: user.email,
       cart: cart,
       final_price: finalPrice

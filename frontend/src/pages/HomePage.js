@@ -13,7 +13,7 @@ function HomePage({ addToCart, user }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/products/')
+    axios.get('https://ihealth-backend.onrender.com/api/products/')
       .then(response => {
         setProducts(response.data);
         setLoading(false);
