@@ -1,0 +1,1676 @@
+/* =============================================================
+   iHealth — App.css
+   Design System: tokens → base → layout → components → pages
+   ============================================================= */
+
+/* ─────────────────────────────────────────────
+   1. DESIGN TOKENS
+   ───────────────────────────────────────────── */
+:root {
+  /* Brand Colors */
+  --color-navy:          #1b2f4e;   /* headings, navbar, primary text */
+  --color-navy-deep:     #111e33;   /* hover darken */
+  --color-teal:          #0d9488;   /* primary CTA, price, accents   */
+  --color-teal-hover:    #0a7a70;   /* CTA hover state               */
+  --color-teal-light:    #e8f7f5;   /* secondary button bg           */
+  --color-teal-border:   #80cdc7;   /* secondary button border       */
+  --color-teal-glow:     rgba(13, 148, 136, 0.22); /* focus ring / shadow */
+
+  /* Semantic — Feedback */
+  --color-danger:        #c0392b;   /* error text, destructive       */
+  --color-danger-light:  #fdf1ef;   /* destructive button bg         */
+  --color-danger-border: #e07068;   /* destructive button border     */
+  --color-success:       #1a9e5c;   /* success text                  */
+
+  /* Neutrals */
+  --color-bg:            #f2f5f9;   /* app background                */
+  --color-surface:       #ffffff;   /* card / panel surface          */
+  --color-border:        #e0e7ef;   /* dividers, input borders       */
+  --color-text-primary:  #1b2f4e;   /* body copy                     */
+  --color-text-secondary:#6b7a8d;   /* muted labels, meta            */
+  --color-placeholder:   #b0bbc8;   /* input placeholder             */
+
+  /* Radius */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-sm:   0 1px 4px rgba(27, 47, 78, 0.06);
+  --shadow-md:   0 4px 16px rgba(27, 47, 78, 0.09);
+  --shadow-lg:   0 10px 36px rgba(27, 47, 78, 0.13);
+
+  /* Transitions */
+  --ease:        0.2s ease;
+  --ease-slow:   0.35s ease;
+
+  /* Typography */
+  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+
+/* ─────────────────────────────────────────────
+   2. RESET & BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { display: block; max-width: 100%; }
+
+a {
+  color: var(--color-teal);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+a:hover { color: var(--color-teal-hover); }
+
+h1, h2, h3, h4, h5 {
+  color: var(--color-navy);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+
+/* ─────────────────────────────────────────────
+   3. LAYOUT
+   ───────────────────────────────────────────── */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 28px;
+}
+
+/* Narrower constraint for detail pages */
+.product-detail-page {
+  max-width: 1000px;
+}
+
+/* Page heading shared across pages */
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 28px;
+}
+
+/* Loading / empty states */
+.loading-text {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin-top: 24px;
+}
+
+.empty-state {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  grid-column: 1 / -1;
+  padding: 24px 0;
+}
+
+
+/* ─────────────────────────────────────────────
+   4. PRODUCT GRID
+   ───────────────────────────────────────────── */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* Tablet — 2 columns */
+@media (max-width: 900px) {
+  .grid-container { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile — 1 column */
+@media (max-width: 580px) {
+  .grid-container { grid-template-columns: 1fr; gap: 20px; }
+}
+
+
+/* ─────────────────────────────────────────────
+   5. PRODUCT CARD  (used by ProductCard component)
+   ───────────────────────────────────────────── */
+.product-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--ease), box-shadow var(--ease);
+  border: 1px solid var(--color-border);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card__image {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  background-color: var(--color-border);
+}
+
+.product-card__image-placeholder {
+  width: 100%;
+  height: 210px;
+  background-color: #edf1f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-placeholder);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.product-card__body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+
+.product-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  line-height: 1.35;
+}
+
+.product-card__price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+.product-card__description {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  flex: 1;
+}
+
+.product-card__actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+.product-card__actions .btn-primary,
+.product-card__actions .btn-secondary {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+}
+
+
+/* ─────────────────────────────────────────────
+   6. BUTTONS
+   ───────────────────────────────────────────── */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  line-height: 1;
+  transition:
+    background-color var(--ease),
+    border-color     var(--ease),
+    color            var(--ease),
+    box-shadow       var(--ease),
+    transform        var(--ease);
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Primary — solid teal */
+.btn-primary {
+  background-color: var(--color-teal);
+  border-color: var(--color-teal);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: var(--color-teal-hover);
+  border-color: var(--color-teal-hover);
+  box-shadow: 0 6px 18px var(--color-teal-glow);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+/* Secondary — outlined teal */
+.btn-secondary {
+  background-color: var(--color-teal-light);
+  border-color: var(--color-teal-border);
+  color: var(--color-teal);
+}
+.btn-secondary:hover {
+  background-color: var(--color-teal);
+  border-color: var(--color-teal);
+  color: #fff;
+  box-shadow: 0 6px 18px var(--color-teal-glow);
+  transform: translateY(-1px);
+}
+.btn-secondary:active { transform: translateY(0); box-shadow: none; }
+
+/* Danger — for delete/destructive actions */
+.btn-danger {
+  background-color: var(--color-danger-light);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+.btn-danger:hover {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.btn-danger:active { transform: translateY(0); }
+
+/* Disabled state — all button variants */
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-danger:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* ─────────────────────────────────────────────
+   7. FORM INPUTS
+   ───────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  transition: border-color var(--ease), box-shadow var(--ease);
+  resize: vertical;
+  line-height: 1.5;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px var(--color-teal-glow);
+}
+.form-input::placeholder { color: var(--color-placeholder); }
+
+/* Search bar — pill variant */
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 540px;
+  padding: 12px 22px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px var(--color-teal-glow);
+}
+.search-input::placeholder { color: var(--color-placeholder); }
+
+
+/* ─────────────────────────────────────────────
+   8. PRODUCT DETAIL PAGE
+   ───────────────────────────────────────────── */
+
+/* Hero card — image + info side by side */
+.product-detail-card {
+  display: flex;
+  gap: 44px;
+  background-color: var(--color-surface);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 32px;
+}
+
+.product-detail-image-col { flex: 1; }
+
+.product-detail-img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+}
+
+.product-detail-img-placeholder {
+  width: 100%;
+  height: 320px;
+  background-color: #edf1f6;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-placeholder);
+  font-size: 0.9rem;
+  border: 1px dashed var(--color-border);
+}
+
+.product-detail-info-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0; /* spacing handled by child margins */
+}
+
+.product-detail-name {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+}
+
+.product-detail-price {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--color-teal);
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+
+.product-detail-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.product-detail-actions {
+  display: flex;
+  gap: 14px;
+}
+
+/* Stretch both CTA buttons equally */
+.product-detail-actions .btn-primary,
+.product-detail-actions .btn-secondary {
+  flex: 1;
+}
+
+/* Stack on mobile */
+@media (max-width: 740px) {
+  .product-detail-card {
+    flex-direction: column;
+    padding: 24px;
+    gap: 28px;
+  }
+  .product-detail-name  { font-size: 1.5rem; }
+  .product-detail-price { font-size: 1.9rem; }
+  .product-detail-actions { flex-direction: column; }
+  .product-detail-actions .btn-primary,
+  .product-detail-actions .btn-secondary { flex: none; width: 100%; }
+}
+
+
+/* ─────────────────────────────────────────────
+   9. REVIEWS SECTION
+   ───────────────────────────────────────────── */
+.reviews-section {
+  background-color: var(--color-surface);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+.reviews-section__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+/* Leave a Review form container */
+.review-form-container {
+  padding: 24px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 40px;
+}
+
+.review-form-container h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 14px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Keep submit button compact */
+.review-submit-btn {
+  width: 160px;
+  align-self: flex-start;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+/* Inline feedback messages below the form */
+.feedback-message {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.feedback-message--error   { color: var(--color-danger); }
+.feedback-message--success { color: var(--color-success); }
+
+/* Individual review row */
+.review-item {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+.review-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.review-author {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-navy);
+}
+
+.review-date {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  margin-left: 10px;
+  font-weight: 400;
+}
+
+.review-message {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  line-height: 1.65;
+}
+
+.reviews-empty {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+@media (max-width: 580px) {
+  .reviews-section { padding: 24px 20px; }
+}
+
+
+/* ─────────────────────────────────────────────
+   10. POPUP / MODAL  (Popup component)
+   ───────────────────────────────────────────── */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(17, 30, 51, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: fadeIn 0.18s ease;
+}
+
+.popup-box {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.22s ease;
+}
+
+.popup-box p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+.popup-box h3 {
+  font-size: 1.15rem;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+@keyframes fadeIn  { from { opacity: 0 }      to { opacity: 1 } }
+@keyframes slideUp { from { transform: translateY(14px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+
+
+/* ─────────────────────────────────────────────
+   11. NAVBAR  (for when you build it out)
+   ───────────────────────────────────────────── */
+.navbar {
+  background-color: var(--color-navy);
+  padding: 0 28px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(17, 30, 51, 0.18);
+}
+
+.navbar__brand {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.navbar__brand span { color: var(--color-teal); }
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.navbar__links a {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--ease);
+}
+.navbar__links a:hover { color: #fff; }
+
+.navbar__links .btn-primary { padding: 8px 20px; font-size: 0.875rem; }
+
+
+/* ─────────────────────────────────────────────
+   12. CART / TABLE UTILITIES
+   ───────────────────────────────────────────── */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-surface);
+}
+
+.table-container th {
+  background-color: #eef2f7;
+  color: var(--color-navy);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table-container td {
+  padding: 14px 18px;
+  font-size: 0.93rem;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table-container tr:last-child td { border-bottom: none; }
+
+.table-container tr:hover td {
+  background-color: #f7fafc;
+}
+
+
+/* ─────────────────────────────────────────────
+   13. UTILITY CLASSES
+   ───────────────────────────────────────────── */
+.text-muted   { color: var(--color-text-secondary); }
+.text-success { color: var(--color-success); }
+.text-danger  { color: var(--color-danger); }
+.text-teal    { color: var(--color-teal); }
+
+.mt-sm { margin-top: 12px; }
+.mt-md { margin-top: 24px; }
+.mt-lg { margin-top: 40px; }
+
+/* Responsive page padding on small screens */
+@media (max-width: 580px) {
+  .page-container { padding: 28px 16px; }
+  .page-title     { font-size: 1.5rem; }
+}
+
+/* =============================================================
+   App.css — ADDITIONS (CartPage + Navbar)
+   Paste these blocks at the bottom of your existing App.css
+   ============================================================= */
+
+
+/* ─────────────────────────────────────────────
+   NAVBAR  (replaces the stub in previous CSS)
+   ───────────────────────────────────────────── */
+
+/* Override/complete the navbar block */
+.navbar {
+  background-color: var(--color-navy);
+  padding: 0 32px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 14px rgba(17, 30, 51, 0.22);
+}
+
+/* Brand logo — "i" white, "Health" teal */
+.navbar__brand-link {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  transition: opacity var(--ease);
+}
+.navbar__brand-link:hover { opacity: 0.88; color: #fff; }
+.navbar__brand-link span  { color: var(--color-teal); }
+
+/* Right-side link group */
+.navbar__nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Base nav link */
+.nav-link {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.80);
+  text-decoration: none;
+  transition: color var(--ease), background-color var(--ease);
+  white-space: nowrap;
+}
+.nav-link:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Cart link — flex so SVG + badge sit inline */
+.nav-link--cart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+/* Cart SVG icon */
+.cart-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Red count bubble */
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background-color: var(--color-danger);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  border: 2px solid var(--color-navy);    /* punches out from navbar bg */
+  pointer-events: none;
+}
+
+/* Amber "Owner Dashboard" link */
+.nav-link--owner {
+  color: #f5a623;
+}
+.nav-link--owner:hover {
+  color: #ffc85a;
+  background-color: rgba(245, 166, 35, 0.12);
+}
+
+/* Ghost logout button */
+.btn-logout {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--ease), color var(--ease), background-color var(--ease);
+  font-family: var(--font-sans);
+  margin-left: 6px;
+}
+.btn-logout:hover {
+  border-color: var(--color-danger);
+  color: #ff7a70;
+  background-color: rgba(192, 57, 43, 0.10);
+}
+
+@media (max-width: 680px) {
+  .navbar { padding: 0 16px; }
+  .nav-link { padding: 7px 9px; font-size: 0.82rem; }
+  .navbar__brand-link { font-size: 1.2rem; }
+}
+
+
+/* ─────────────────────────────────────────────
+   CART PAGE
+   ───────────────────────────────────────────── */
+
+/* Wrapper that holds items + voucher + totals */
+.cart-content {
+  margin-bottom: 32px;
+}
+
+/* Single item row */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 560px;
+  margin: 0 auto 12px;
+  padding: 16px 20px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--ease);
+}
+.cart-item:hover { box-shadow: var(--shadow-md); }
+
+.cart-item__info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cart-item__name {
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.cart-item__price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+/* Small button variant */
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+}
+
+/* ── Voucher ── */
+.voucher-section {
+  max-width: 560px;
+  margin: 24px auto 0;
+}
+
+.voucher-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* Input fills remaining space, button stays intrinsic width */
+.voucher-input-row .form-input {
+  flex: 1;
+  margin: 0;
+}
+
+.voucher-input-row .btn-primary {
+  flex-shrink: 0;
+  padding: 12px 22px;
+}
+
+.voucher-message {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.voucher-message--success { color: var(--color-success); }
+.voucher-message--error   { color: var(--color-danger);  }
+
+/* ── Totals ── */
+.cart-totals {
+  max-width: 560px;
+  margin: 24px auto 0;
+  padding: 20px 24px;
+  border-top: 2px solid var(--color-border);
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cart-totals__subtotal {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.cart-totals__discount {
+  font-size: 1rem;
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.cart-totals__total {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-top: 6px;
+}
+
+/* ── Address Warning Banner ── */
+.address-warning {
+  max-width: 560px;
+  margin: 0 auto 24px;
+  padding: 24px 28px;
+  background-color: var(--color-danger-light);
+  border: 1.5px solid var(--color-danger-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.address-warning__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-danger);
+  margin-bottom: 10px;
+}
+
+.address-warning__text {
+  font-size: 0.93rem;
+  color: var(--color-navy);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+/* ── Checkout Action Row ── */
+.cart-actions {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.cart-checkout-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+}
+
+/* ── Checkout Status Messages ── */
+.checkout-success {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-success);
+  margin-top: 24px;
+  padding: 24px;
+  background-color: #edf9f3;
+  border: 1.5px solid #a3d9bc;
+  border-radius: var(--radius-md);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 580px) {
+  .cart-item         { padding: 14px 16px; }
+  .cart-totals       { padding: 16px 0; }
+  .address-warning   { padding: 20px 16px; }
+}
+
+/* =============================================================
+   OWNER / DASHBOARD PAGE
+   Classes: dashboard-container, tab-nav, tab-btn, tab-panel,
+            form-card, section-heading, form-message,
+            btn-full-width, btn-danger--sm, table-section,
+            data-table, table-header-row, table-th, table-row,
+            table-td, table-empty, popup-content, popup-title,
+            popup-body, popup-actions, dashboard-heading
+   ============================================================= */
+
+
+/* ─────────────────────────────────────────────
+   DASHBOARD CONTAINER
+   Narrower than the 1200px storefront — keeps
+   admin content comfortable at 900px.
+   ───────────────────────────────────────────── */
+.dashboard-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 28px;
+}
+
+.dashboard-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 32px;
+}
+
+
+/* ─────────────────────────────────────────────
+   TAB NAVIGATION
+   Pill-underline tabs — active tab gets a solid
+   teal bottom border; inactive is muted.
+   ───────────────────────────────────────────── */
+.tab-nav {
+  display: flex;
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: 36px;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;          /* overlaps .tab-nav border-bottom */
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--color-navy);
+}
+
+.tab-btn--active {
+  color: var(--color-navy);
+  border-bottom-color: var(--color-teal);
+}
+
+
+/* ─────────────────────────────────────────────
+   TAB PANEL
+   Shared wrapper for the content under each tab.
+   ───────────────────────────────────────────── */
+.tab-panel {
+  text-align: left;
+}
+
+
+/* ─────────────────────────────────────────────
+   SECTION HEADING  (used inside tab panels)
+   Subtle ruled underline consistent with the
+   overall iHealth card aesthetic.
+   ───────────────────────────────────────────── */
+.section-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+
+/* ─────────────────────────────────────────────
+   ADD-PRODUCT FORM CARD
+   Centered, max-width panel on a surface card.
+   ───────────────────────────────────────────── */
+.form-card {
+  max-width: 500px;
+  margin: 0 auto 44px auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ─────────────────────────────────────────────
+   FORM FEEDBACK MESSAGES
+   Success / error inline messages inside forms.
+   Uses BEM modifier pattern: --success / --error
+   ───────────────────────────────────────────── */
+.form-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.form-message--success {
+  color: var(--color-success);
+  background-color: #edf9f3;
+  border: 1px solid #a3d9bc;
+}
+
+.form-message--error {
+  color: var(--color-danger);
+  background-color: var(--color-danger-light);
+  border: 1px solid var(--color-danger-border);
+}
+
+
+/* ─────────────────────────────────────────────
+   FULL-WIDTH BUTTON MODIFIER
+   Stretches any button to 100% of its container.
+   ───────────────────────────────────────────── */
+.btn-full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ─────────────────────────────────────────────
+   SMALL DANGER BUTTON  (inline table action)
+   Compact variant of .btn-danger for table rows.
+   ───────────────────────────────────────────── */
+.btn-danger--sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+}
+
+
+/* ─────────────────────────────────────────────
+   TABLE SECTION WRAPPER
+   Gives the products table its own visual block
+   below the add-product form.
+   ───────────────────────────────────────────── */
+.table-section {
+  margin-top: 8px;
+}
+
+
+/* ─────────────────────────────────────────────
+   DATA TABLE  (products + orders)
+   Layered on top of the existing .table-container
+   scroll wrapper already in your CSS. This block
+   handles the visual table internals exclusively.
+   ───────────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-surface);
+  font-size: 0.93rem;
+}
+
+/* Orders table needs a min-width so columns don't crush */
+.data-table--wide {
+  min-width: 800px;
+}
+
+/* Header row */
+.table-header-row {
+  background-color: #eef2f7;
+}
+
+/* Header cells */
+.table-th {
+  padding: 13px 18px;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-navy);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table-th--center {
+  text-align: center;
+}
+
+/* Body rows — subtle stripe-on-hover */
+.table-row {
+  transition: background-color var(--ease);
+}
+
+.table-row:hover {
+  background-color: #f7fafc;
+}
+
+.table-row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Body cells */
+.table-td {
+  padding: 13px 18px;
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.table-td--center {
+  text-align: center;
+}
+
+/* Order ID badge styling */
+.table-td--id {
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+/* Address cell — respects line breaks from the API */
+.table-td--address {
+  white-space: pre-wrap;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* Total / amount cell */
+.table-td--amount {
+  font-weight: 700;
+  color: var(--color-teal);
+  font-size: 1rem;
+}
+
+/* Empty-state cell spanning all columns */
+.table-empty {
+  padding: 28px 18px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.93rem;
+  font-style: italic;
+}
+
+
+/* ─────────────────────────────────────────────
+   DELETE CONFIRMATION POPUP
+   Uses the existing .popup-overlay backdrop.
+   .popup-content replaces the old .popup-box so
+   it can sit cleanly inside .popup-overlay.
+   ───────────────────────────────────────────── */
+.popup-content {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.22s ease;
+}
+
+.popup-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-danger);
+  margin-bottom: 12px;
+}
+
+.popup-body {
+  font-size: 0.97rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* The .popup-actions flex row is already defined above (section 10).
+   The rule below ensures the two buttons share space equally
+   when rendered inside this specific popup. */
+.popup-content .popup-actions {
+  margin-top: 28px;
+  gap: 14px;
+}
+
+.popup-content .popup-actions .btn-secondary,
+.popup-content .popup-actions .btn-danger {
+  flex: 1;
+}
+
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — OWNER PAGE
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 32px 16px;
+  }
+
+  .dashboard-heading {
+    font-size: 1.6rem;
+  }
+
+  .tab-btn {
+    font-size: 0.85rem;
+    padding: 12px 10px;
+  }
+
+  .form-card {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 580px) {
+  .tab-nav {
+    gap: 0;
+  }
+
+  .tab-btn {
+    font-size: 0.8rem;
+    padding: 10px 8px;
+  }
+
+  .popup-content {
+    padding: 28px 22px;
+  }
+
+  .popup-content .popup-actions {
+    flex-direction: column;
+  }
+
+  .popup-content .popup-actions .btn-secondary,
+  .popup-content .popup-actions .btn-danger {
+    flex: none;
+    width: 100%;
+  }
+}
+
+
+/* =============================================================
+   LOGIN PAGE  +  PROFILE PAGE
+   New classes: auth-page, auth-card, auth-card__header,
+   auth-card__title, auth-card__subtitle, auth-form,
+   auth-error, auth-toggle-btn, auth-divider,
+   auth-google-row, profile-section-title,
+   profile-section-subtitle, order-list, order-card,
+   order-card__info, order-card__thumb,
+   order-card__thumb-placeholder, order-card__details,
+   order-card__name, order-card__meta, order-card__status,
+   orders-empty-state, settings-panel, settings-divider,
+   settings-subheading
+   ============================================================= */
+
+
+/* ─────────────────────────────────────────────
+   LOGIN PAGE — AUTH CARD LAYOUT
+   Full-height centering wrapper so the card
+   floats vertically in the middle of the viewport.
+   ───────────────────────────────────────────── */
+.auth-page {
+  min-height: calc(100vh - 66px);   /* subtract navbar height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* The white card */
+.auth-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Header block inside card */
+.auth-card__header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.auth-card__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.auth-card__subtitle {
+  font-size: 0.93rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* Form — left-aligned inputs inside centered card */
+.auth-form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0;                /* form-group handles its own bottom margin */
+  margin-bottom: 14px;
+}
+
+/* Inline error message below password field */
+.auth-error {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-danger);
+  background-color: var(--color-danger-light);
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* Ghost text button — "Don't have an account? Sign up." */
+.auth-toggle-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--color-teal);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  padding: 6px 0 14px;
+  transition: color var(--ease);
+}
+.auth-toggle-btn:hover {
+  color: var(--color-teal-hover);
+  text-decoration: underline;
+}
+
+/* "or continue with" divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+
+.auth-divider__line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.auth-divider__label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Centers the Google OAuth button */
+.auth-google-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive: shrink padding on small phones */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 32px 24px;
+  }
+  .auth-card__title {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   PROFILE PAGE — SHARED HEADINGS
+   Reuses .dashboard-container and .tab-nav /
+   .tab-btn / .tab-btn--active from OwnerPage.
+   ───────────────────────────────────────────── */
+.profile-section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 6px;
+}
+
+.profile-section-subtitle {
+  font-size: 0.93rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+
+
+/* ─────────────────────────────────────────────
+   ORDER LIST  (Purchase History tab)
+   ───────────────────────────────────────────── */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Single order row — card variant */
+.order-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-sm);
+  gap: 16px;
+  transition: box-shadow var(--ease), transform var(--ease);
+}
+.order-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Left cluster: thumbnail + text */
+.order-card__info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;           /* allows text truncation if needed */
+}
+
+/* Product thumbnail */
+.order-card__thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+}
+
+/* Gray placeholder when no image */
+.order-card__thumb-placeholder {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background-color: #edf1f6;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--color-placeholder);
+  letter-spacing: 0.02em;
+}
+
+/* Text column next to thumbnail */
+.order-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.order-card__name {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  line-height: 1.3;
+}
+
+.order-card__meta {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.order-card__status {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+/* Empty state — no orders yet */
+.orders-empty-state {
+  text-align: center;
+  padding: 48px 32px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.orders-empty-state h3 {
+  font-size: 1.1rem;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.orders-empty-state p {
+  font-size: 0.93rem;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive: stack card contents on narrow screens */
+@media (max-width: 580px) {
+  .order-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-card .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   PROFILE SETTINGS TAB
+   ───────────────────────────────────────────── */
+
+/* Constrain settings form to readable width */
+.settings-panel {
+  max-width: 520px;
+}
+
+/* Ruled separator between address and password fields */
+.settings-divider {
+  border: none;
+  border-top: 1.5px solid var(--color-border);
+  margin: 28px 0 24px;
+}
+
+/* "Change Password" sub-heading */
+.settings-subheading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 4px;
+}
+
+.form-row > * {
+  flex: 1;
+}
