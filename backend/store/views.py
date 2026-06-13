@@ -23,12 +23,14 @@ def register(request):
     email = request.data.get('email')
     password = request.data.get('password')
     first_name = request.data.get('first_name', '')
+    last_name = request.data.get('last_name', '') # <--- 1. ADD THIS LINE
 
     if User.objects.filter(username=email).exists():
         return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
     # Create the user with a securely hashed password
-    user = User.objects.create_user(username=email, email=email, password=password, first_name=first_name)
+    # <--- 2. ADD last_name=last_name TO THE END OF THIS LINE
+    user = User.objects.create_user(username=email, email=email, password=password, first_name=first_name, last_name=last_name)
     refresh = RefreshToken.for_user(user)
 
     return Response({
