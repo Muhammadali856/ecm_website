@@ -12,7 +12,7 @@ function ProductDetailPage({ user, addToCart }) {
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   useEffect(() => {
-    axios.get('https://ihealth-backend.onrender.com/api/products/${id}/')
+    axios.get(`https://ihealth-backend.onrender.com/api/products/${id}/`)
       .then(res => setProduct(res.data))
       .catch(err => console.error("Failed to load product", err));
   }, [id]);
@@ -54,7 +54,6 @@ function ProductDetailPage({ user, addToCart }) {
       setFeedbackSuccess(res.data.message);
       setFeedbackText('');
       
-      // CORRECT: Using backticks, trailing slash, AND updating the product state
       axios.get(`https://ihealth-backend.onrender.com/api/products/${id}/`)
         .then(refreshRes => setProduct(refreshRes.data));
     })
