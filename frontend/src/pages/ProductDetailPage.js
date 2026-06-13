@@ -50,7 +50,7 @@ function ProductDetailPage({ user, addToCart }) {
       email: user.email,
       message: feedbackText
     })
-    ..then(res => {
+    .then(res => {
       setFeedbackSuccess(res.data.message);
       setFeedbackText('');
       
